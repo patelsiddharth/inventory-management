@@ -1,0 +1,166 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 15px;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+.admin-panel {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: flex-end;
+}
+
+.inventory-header {
+  text-align: left;
+}
+
+.row-action {
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+}
+
+.is-disable {
+  color: #808080;
+  cursor: no-drop;
+}
+.is-active {
+  cursor: pointer;
+}
+.edit-btn {
+  color: #377d22;
+}
+.show-btn {
+  color: #c597d4;
+}
+.hide-btn {
+  color: #c597d4;
+}
+.delete-btn {
+  color: #eb3323;
+}
+.item-disabled {
+  color: #848485;
+}
+
+.widget-container {
+  display: flex;
+  gap: 15px;
+
+  .widget-content {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    background: #243325;
+    padding: 20px 15px;
+    border-radius: 10px;
+
+    .widget-content-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      .widget-label {
+        font-size: 12px;
+      }
+      .widget-value {
+        font-size: 32px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.inventory-table {
+  margin: 25px 0px;
+}
+
+.table-header-cell {
+  background-color: #000;
+  color: #b8cb5e;
+  border-radius: 10px;
+  padding: 7px 10px;
+}
+
+.edit-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  color: #e6e6e6;
+  background-color: #292b27;
+
+  .edit-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .edit-dialog-header-title {
+      font-size: 24px;
+    }
+
+    .edit-dialog-header-btn {
+      display: grid;
+      place-items: center;
+      border: 1px solid #323431;
+      border-radius: 8px;
+      padding: 5px;
+      color: #deff55;
+      background: #272826;
+      cursor: pointer;
+    }
+  }
+
+  .edit-dialog-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    .edit-dialog-content-item {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      input {
+        background: #3f413d;
+        border: 1px solid #3f413d;
+        padding: 10px;
+        color: white;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .edit-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+
+    .edit-dialog-footer-cancel-btn {
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      &:hover {
+        color: #deff55;
+        background: #434541;
+      }
+    }
+
+    .edit-dialog-footer-save-btn {
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &:hover {
+        color: #deff55;
+        background: #434541;
+      }
+    }
+  }
+}
