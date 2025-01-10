@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -13,12 +13,15 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { UserContext } from "./App";
 
-export default function InventoryTable({ itemList, updateItemList, openDialog }) {
-  const { isUser, updateIsUser } = useContext(UserContext);
+export default function InventoryTable({
+  itemList,
+  updateItemList,
+  openDialog,
+}) {
+  const { isUser } = useContext(UserContext);
 
   function handleEdit(selectedItem) {
     if (!isUser && !selectedItem.isDisabled) {
-      console.log("test edit");
       openDialog(selectedItem);
     }
   }
@@ -39,21 +42,24 @@ export default function InventoryTable({ itemList, updateItemList, openDialog })
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: '#212124',
+      backgroundColor: "#212124",
       color: theme.palette.common.white,
-      borderBottom: '1px solid #515151',
+      borderBottom: "1px solid #515151",
     },
     [`&.${tableCellClasses.body}`]: {
-      backgroundColor: '#212124',
+      backgroundColor: "#212124",
       color: theme.palette.common.white,
-      borderBottom: '1px solid #515151',
+      borderBottom: "1px solid #515151",
     },
   }));
 
   return (
     <div className="inventory-table">
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650, border: '1px solid #515151' }} aria-label="simple table">
+        <Table
+          sx={{ minWidth: 650, border: "1px solid #515151" }}
+          aria-label="simple table"
+        >
           <TableHead>
             <TableRow>
               <StyledTableCell>
@@ -78,9 +84,7 @@ export default function InventoryTable({ itemList, updateItemList, openDialog })
           </TableHead>
           <TableBody>
             {itemList.map((item) => (
-              <TableRow
-                key={item.name}
-              >
+              <TableRow key={item.name}>
                 <StyledTableCell>
                   <span className={item.isDisabled ? "item-disabled" : ""}>
                     {item.name}
