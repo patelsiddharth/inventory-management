@@ -7,9 +7,9 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import CategoryIcon from "@mui/icons-material/Category";
 import CloseIcon from "@mui/icons-material/Close";
-import Dialog, { Dis } from "@mui/material/Dialog";
+import Dialog from "@mui/material/Dialog";
 import { styled } from "@mui/material/styles";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo, memo } from "react";
 
 export const UserContext = createContext();
 const URL = "https://dev-0tf0hinghgjl39z.api.raw-labs.com/inventory";
@@ -30,11 +30,22 @@ export default function App() {
     value: "",
   });
 
+  const MemoizedInventoryTable = memo(InventoryTable);
+
+  const widgetData = useMemo(
+    () => ({
+      totalProduct,
+      totalStoreValue,
+      totalOutOfStockProduct,
+      totalCategory,
+    }),
+    [totalProduct, totalStoreValue, totalOutOfStockProduct, totalCategory]
+  );
+
   useEffect(() => {
     (async function fetchData() {
       const response = await fetch(URL);
       const parsedResponse = await response.json();
-
       parsedResponse.forEach((item) => {
         item.isDisabled = false;
         const arr = new Uint32Array(1);
@@ -83,17 +94,23 @@ export default function App() {
     });
     setOpen(true);
   }
+
   function handleDialogSave() {
-    itemList.forEach((item) => {
+    const updatedList = itemList.map((item) => {
       if (item.id === selectedItemForEdit.id) {
-        item.category = selectedItemForEdit.category;
-        item.price = `$${selectedItemForEdit.price}`;
-        item.quantity = selectedItemForEdit.quantity;
-        item.value = `$${selectedItemForEdit.value}`;
+        return {
+          ...item,
+          category: selectedItemForEdit.category,
+          price: `$${selectedItemForEdit.price}`,
+          quantity: selectedItemForEdit.quantity,
+          value: `$${selectedItemForEdit.value}`,
+        };
       }
+      return item;
     });
-    calculateWidgetData(itemList);
-    setItemList([...itemList]);
+
+    calculateWidgetData(updatedList);
+    setItemList(updatedList);
     setSelectedItemForEdit({
       name: "",
       category: "",
@@ -103,6 +120,7 @@ export default function App() {
     });
     setOpen(false);
   }
+
   function handleDialogClose() {
     setSelectedItemForEdit({
       name: "",
@@ -145,25 +163,25 @@ export default function App() {
           <Widget
             icon={ShoppingCartIcon}
             label="Total product"
-            value={totalProduct}
+            value={widgetData.totalProduct}
           />
           <Widget
             icon={CurrencyExchangeIcon}
             label="Total store value"
-            value={totalStoreValue}
+            value={widgetData.totalStoreValue}
           />
           <Widget
             icon={RemoveShoppingCartIcon}
             label="Out of stocks"
-            value={totalOutOfStockProduct}
+            value={widgetData.totalOutOfStockProduct}
           />
           <Widget
             icon={CategoryIcon}
             label="No of Category"
-            value={totalCategory}
+            value={widgetData.totalCategory}
           />
         </div>
-        <InventoryTable
+        <MemoizedInventoryTable
           itemList={itemList}
           updateItemList={updateItemList}
           openDialog={handleDialogOpen}
