@@ -1,4 +1,3 @@
-# muiform1
-Created with CodeSandbox
+# Inventory Management Frontend Coding Challenge
 
 Live URL - https://inventory-management-psi-seven.vercel.app/
