@@ -14,6 +14,9 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
   "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
     backgroundColor: "#E5FD72",
   },
+  "& .MuiSwitch-switchBase:not(.Mui-checked) + .MuiSwitch-track": {
+    backgroundColor: "#5c5d5e",
+  },
 }));
 
 export default function AdminPanel() {
